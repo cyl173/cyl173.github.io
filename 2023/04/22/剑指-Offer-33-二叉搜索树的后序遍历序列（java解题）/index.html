@@ -48,29 +48,31 @@
   };
 </script>
 
-  <meta name="description" content="博（jing）客（shen）展（jia）区（yuan）">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CrazyPixelCode&#39;s Space">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="Leetcode《图解数据结构》剑指 Offer 33. 二叉搜索树的后序遍历序列（java 解题）的解题思路和 java 代码，并附上 java 中常用数据结构的功能函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）">
+<meta property="og:url" content="http://example.com/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/index.html">
 <meta property="og:site_name" content="CrazyPixelCode&#39;s Space">
-<meta property="og:description" content="博（jing）客（shen）展（jia）区（yuan）">
+<meta property="og:description" content="Leetcode《图解数据结构》剑指 Offer 33. 二叉搜索树的后序遍历序列（java 解题）的解题思路和 java 代码，并附上 java 中常用数据结构的功能函数。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-22T14:40:00.000Z">
+<meta property="article:modified_time" content="2023-04-22T14:40:39.128Z">
 <meta property="article:author" content="CrazyPixel">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false
+    isHome: false,
+    isPost: true
   };
 </script>
 
-  <title>CrazyPixelCode's Space</title>
+  <title>剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题） | CrazyPixelCode's Space</title>
   
 
 
@@ -180,10 +182,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -197,8 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/" class="post-title-link" itemprop="url">剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）</a>
+          剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）
         </h1>
 
         <div class="post-meta">
@@ -212,7 +213,14 @@
               <time title="创建时间：2023-04-22 22:40:00 / 修改时间：22:40:39" itemprop="dateCreated datePublished" datetime="2023-04-22T22:40:00+08:00">2023-04-22</time>
             </span>
 
-          <br>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
@@ -237,297 +245,99 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Leetcode《图解数据结构》剑指 Offer 33. 二叉搜索树的后序遍历序列（java 解题）的解题思路和 java 代码，并附上 java 中常用数据结构的功能函数。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
+        <p>Leetcode《图解数据结构》剑指 Offer 33. 二叉搜索树的后序遍历序列（java 解题）的解题思路和 java 代码，并附上 java 中常用数据结构的功能函数。</p>
+ <span id="more"></span>
 
-    
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+<h1 id="1-题目"><a href="#1-题目" class="headerlink" title="1. 题目"></a>1. 题目</h1><p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回  true，否则返回  false。假设输入的数组的任意两个数字都互不相同。</p>
+<p>参考以下这颗二叉搜索树：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    5</span><br><span class="line">   / \</span><br><span class="line">  2   6</span><br><span class="line"> / \</span><br><span class="line">1   3</span><br></pre></td></tr></table></figure>
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/14/%E3%80%90%E8%AF%A6%E8%A7%A3%E3%80%91Matlab%E5%AF%BC%E5%85%A5%E5%A4%9A%E4%B8%AA-mat%E6%96%87%E4%BB%B6%E5%B9%B6%E7%94%BB%E5%9B%BE/">
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入: [1,6,3,2,5]</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
-      <meta itemprop="name" content="CrazyPixel">
-      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
-    </span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例 2：</span><br><span class="line">输入: [1,3,2,6,5]</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CrazyPixelCode's Space">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/14/%E3%80%90%E8%AF%A6%E8%A7%A3%E3%80%91Matlab%E5%AF%BC%E5%85%A5%E5%A4%9A%E4%B8%AA-mat%E6%96%87%E4%BB%B6%E5%B9%B6%E7%94%BB%E5%9B%BE/" class="post-title-link" itemprop="url">【详解】Matlab导入多个.mat文件并画图</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-04-14 15:03:03" itemprop="dateCreated datePublished" datetime="2023-04-14T15:03:03+08:00">2023-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-22 22:36:37" itemprop="dateModified" datetime="2023-04-22T22:36:37+08:00">2023-04-22</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="0-实验背景"><a href="#0-实验背景" class="headerlink" title="0. 实验背景"></a>0. 实验背景</h1><p>需要导入多个.mat 文件，将多组数据画在一个图中，并设置图例、坐标轴、散点图、折线图、子图等。</p>
+<p>提示：</p>
+<p>数组长度 &lt;&#x3D; 1000</p>
+<p>作者：Krahets<br>链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/leetbook/read/illustration-of-algorithm/5vwxx5/">https://leetcode.cn/leetbook/read/illustration-of-algorithm/5vwxx5/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h1 id="2-解题思路"><a href="#2-解题思路" class="headerlink" title="2. 解题思路"></a>2. 解题思路</h1><p>使用递归分治的思路：</p>
 <ul>
-<li>由于存在重复操作，主要使用脚本文件编写代码。</li>
-<li>figure 窗口操作比较简单，脚本文件不好写的部分可用 figure 窗口操作进行辅助。</li>
+<li>根据最后一个值<code>x</code>，划分为左右子数组;<ul>
+<li>查找比 x 大的元素，第一个比 x 大的元素下标为<code>i</code>，在此处划分数组<code>[start,i-1]</code>和<code>[i,end]</code>；</li>
 </ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/14/%E3%80%90%E8%AF%A6%E8%A7%A3%E3%80%91Matlab%E5%AF%BC%E5%85%A5%E5%A4%9A%E4%B8%AA-mat%E6%96%87%E4%BB%B6%E5%B9%B6%E7%94%BB%E5%9B%BE/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+</li>
+<li>检查左右数组：左数组的元素均小于<code>x</code>，右数组的元素均大于<code>x</code>。<ul>
+<li>由于左数组元素和<code>x</code>的大小关系已经确定，只需要检查右数组和<code>x</code>的大小关系即可。</li>
+<li>如果右数组不符合要求，直接返回<code>false</code>；否则继续执行下一步</li>
+</ul>
+</li>
+<li>对左右子数组，重复上述步骤;</li>
+</ul>
+<p>终止条件：数组为空或者只有一个元素，返回<code>true</code></p>
+<h1 id="3-数据类型功能函数总结"><a href="#3-数据类型功能函数总结" class="headerlink" title="3. 数据类型功能函数总结"></a>3. 数据类型功能函数总结</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组</span></span><br><span class="line"><span class="type">int</span> len=arrayname.length;<span class="comment">//数组长度</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="4-java-代码"><a href="#4-java-代码" class="headerlink" title="4. java 代码"></a>4. java 代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">verifyPostorder</span><span class="params">(<span class="type">int</span>[] postorder)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> recur(postorder,<span class="number">0</span>,postorder.length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">recur</span><span class="params">(<span class="type">int</span>[] postorder,<span class="type">int</span> start,<span class="type">int</span> end)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(end-start&lt;=<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="type">int</span> root_val=postorder[end];</span><br><span class="line">            <span class="type">int</span> i=start;</span><br><span class="line">            <span class="keyword">for</span>(i=start;i&lt;end;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(postorder[i]&gt;root_val)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//得到i,左右数组[start,i-1],[i,end-1]</span></span><br><span class="line">            <span class="comment">//检查左右数组</span></span><br><span class="line">            <span class="type">int</span> flag=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=i;j&lt;end &amp;&amp; flag==<span class="number">0</span>;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(postorder[j]&lt;root_val)&#123;</span><br><span class="line">                    flag=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>  recur(postorder,start,i-<span class="number">1</span>)&amp;&amp;recur(postorder,i,end-<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-踩坑小记"><a href="#5-踩坑小记" class="headerlink" title="5. 踩坑小记"></a>5. 踩坑小记</h1><h2 id="递归调用，显示StackOverflowError"><a href="#递归调用，显示StackOverflowError" class="headerlink" title="递归调用，显示StackOverflowError"></a>递归调用，显示<code>StackOverflowError</code></h2><p>递归函数的部分为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span>  recur(postorder,start,i-<span class="number">1</span>)&amp;&amp;recur(postorder,i,end-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而我一开始写成了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span>  recur(postorder,start,i-<span class="number">1</span>)&amp;&amp;recur(postorder,i,end);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后一直报错显示<code>StackOverflowError</code>，后来发现是右数组划分的时候，传入<code>end</code>就会导致后序遍历一直停留在和根节点的比较上，无法退出循环，导致栈溢出。</p>
+
     </div>
 
     
     
     
     
+     	<div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+     	</div>
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>CrazyPixel
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/" title="剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）">http://example.com/2023/04/22/剑指-Offer-33-二叉搜索树的后序遍历序列（java解题）/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/14/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
-      <meta itemprop="name" content="CrazyPixel">
-      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CrazyPixelCode's Space">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/14/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87/" class="post-title-link" itemprop="url">重装系统前的准备</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-04-14 01:07:34" itemprop="dateCreated datePublished" datetime="2023-04-14T01:07:34+08:00">2023-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-22 22:36:45" itemprop="dateModified" datetime="2023-04-22T22:36:45+08:00">2023-04-22</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>经历了人生中第一次（被迫）重装系统，有些数据的恢复花了好久才探索出来，想总结一下这几天的痛苦经历，重装系统或者购入新机的朋友可以看看。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/14/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/04/14/%E3%80%90%E8%AF%A6%E8%A7%A3%E3%80%91Matlab%E5%AF%BC%E5%85%A5%E5%A4%9A%E4%B8%AA-mat%E6%96%87%E4%BB%B6%E5%B9%B6%E7%94%BB%E5%9B%BE/" rel="prev" title="【详解】Matlab导入多个.mat文件并画图">
+      <i class="fa fa-chevron-left"></i> 【详解】Matlab导入多个.mat文件并画图
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
-      <meta itemprop="name" content="CrazyPixel">
-      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CrazyPixelCode's Space">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/06/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-04-06 20:53:15" itemprop="dateCreated datePublished" datetime="2023-04-06T20:53:15+08:00">2023-04-06</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>367</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-
 
 
           </div>
@@ -578,6 +388,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E9%A2%98%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">1. 题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">2. 解题思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8A%9F%E8%83%BD%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">3. 数据类型功能函数总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-java-%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">4. java 代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E8%B8%A9%E5%9D%91%E5%B0%8F%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">5. 踩坑小记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8%EF%BC%8C%E6%98%BE%E7%A4%BAStackOverflowError"><span class="nav-number">5.1.</span> <span class="nav-text">递归调用，显示StackOverflowError</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
