@@ -48,19 +48,25 @@
   };
 </script>
 
-  <meta name="description" content="Leetcode《图解数据结构》剑指 Offer 33. 二叉搜索树的后序遍历序列（java 解题）的解题思路和 java 代码，并附上 java 中常用数据结构的功能函数。">
+  <meta name="description" content="MySQL的存储引擎mysql主要有四类存储引擎，目前主要使用InnoDB作为存储引擎。 0. 存储引擎的查看和修改 查看当前数据库的默认存储引擎">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）">
-<meta property="og:url" content="http://example.com/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/index.html">
+<meta property="og:title" content="【后端面经-数据库】MySQL的存储引擎.md">
+<meta property="og:url" content="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/index.html">
 <meta property="og:site_name" content="CrazyPixelCode&#39;s Space">
-<meta property="og:description" content="Leetcode《图解数据结构》剑指 Offer 33. 二叉搜索树的后序遍历序列（java 解题）的解题思路和 java 代码，并附上 java 中常用数据结构的功能函数。">
+<meta property="og:description" content="MySQL的存储引擎mysql主要有四类存储引擎，目前主要使用InnoDB作为存储引擎。 0. 存储引擎的查看和修改 查看当前数据库的默认存储引擎">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-22T14:40:00.000Z">
-<meta property="article:modified_time" content="2023-04-22T14:40:39.128Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94-2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%AF%94%E8%BE%83.png">
+<meta property="article:published_time" content="2023-06-30T14:35:46.000Z">
+<meta property="article:modified_time" content="2023-06-30T14:53:32.894Z">
 <meta property="article:author" content="CrazyPixel">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="DBMS">
+<meta property="article:tag" content="存储引擎，后端面经">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94-2.png">
 
-<link rel="canonical" href="http://example.com/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/">
+<link rel="canonical" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/">
 
 
 <script id="page-configurations">
@@ -72,7 +78,7 @@
   };
 </script>
 
-  <title>剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题） | CrazyPixelCode's Space</title>
+  <title>【后端面经-数据库】MySQL的存储引擎.md | CrazyPixelCode's Space</title>
   
 
 
@@ -186,7 +192,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
@@ -199,7 +205,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）
+          【后端面经-数据库】MySQL的存储引擎.md
         </h1>
 
         <div class="post-meta">
@@ -210,7 +216,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-04-22 22:40:00 / 修改时间：22:40:39" itemprop="dateCreated datePublished" datetime="2023-04-22T22:40:00+08:00">2023-04-22</time>
+              <time title="创建时间：2023-06-30 22:35:46 / 修改时间：22:53:32" itemprop="dateCreated datePublished" datetime="2023-06-30T22:35:46+08:00">2023-06-30</time>
             </span>
 
           
@@ -226,7 +232,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -245,45 +251,106 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Leetcode《图解数据结构》剑指 Offer 33. 二叉搜索树的后序遍历序列（java 解题）的解题思路和 java 代码，并附上 java 中常用数据结构的功能函数。</p>
+        <h1 id="MySQL的存储引擎"><a href="#MySQL的存储引擎" class="headerlink" title="MySQL的存储引擎"></a>MySQL的存储引擎</h1><p>mysql主要有四类存储引擎，目前主要使用InnoDB作为存储引擎。</p>
+<h2 id="0-存储引擎的查看和修改"><a href="#0-存储引擎的查看和修改" class="headerlink" title="0. 存储引擎的查看和修改"></a>0. 存储引擎的查看和修改</h2><ul>
+<li>查看当前数据库的默认存储引擎</li>
+</ul>
  <span id="more"></span>
-
-<h1 id="1-题目"><a href="#1-题目" class="headerlink" title="1. 题目"></a>1. 题目</h1><p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回  true，否则返回  false。假设输入的数组的任意两个数字都互不相同。</p>
-<p>参考以下这颗二叉搜索树：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    5</span><br><span class="line">   / \</span><br><span class="line">  2   6</span><br><span class="line"> / \</span><br><span class="line">1   3</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入: [1,6,3,2,5]</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例 2：</span><br><span class="line">输入: [1,3,2,6,5]</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
-
-<p>提示：</p>
-<p>数组长度 &lt;&#x3D; 1000</p>
-<p>作者：Krahets<br>链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/leetbook/read/illustration-of-algorithm/5vwxx5/">https://leetcode.cn/leetbook/read/illustration-of-algorithm/5vwxx5/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<h1 id="2-解题思路"><a href="#2-解题思路" class="headerlink" title="2. 解题思路"></a>2. 解题思路</h1><p>使用递归分治的思路：</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;default_storage_engine&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>根据最后一个值<code>x</code>，划分为左右子数组;<ul>
-<li>查找比 x 大的元素，第一个比 x 大的元素下标为<code>i</code>，在此处划分数组<code>[start,i-1]</code>和<code>[i,end]</code>；</li>
+<li>查看当前数据库所支持的存储引擎<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> engine;<span class="operator">/</span><span class="operator">/</span>语句<span class="number">1</span></span><br><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;have_%&#x27;</span>;<span class="operator">/</span><span class="operator">/</span>语句<span class="number">2</span></span><br></pre></td></tr></table></figure></li>
+<li>查看支持事务处理的存储引擎<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> engine <span class="keyword">from</span> information_schema.engines <span class="keyword">where</span> transactions<span class="operator">=</span><span class="string">&#x27;yes&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li>设置新表的存储引擎<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名 (字段名 字段类型) engine<span class="operator">=</span>存储引擎;<span class="operator">/</span><span class="operator">/</span>语句<span class="number">1</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名 (字段名 字段类型) type<span class="operator">=</span>存储引擎;<span class="operator">/</span><span class="operator">/</span>语句<span class="number">2</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="1-MyISAM"><a href="#1-MyISAM" class="headerlink" title="1. MyISAM"></a>1. MyISAM</h2><ol>
+<li><p>文件组成</p>
+<ul>
+<li>.frm文件：表结构定义，<code>frame</code>，可以理解成对整体框架的存储</li>
+<li>.MYD文件：数据文件，存储的是具体的数据库数据条目</li>
+<li>.MYI文件：索引文件，存储的是数据库表项的索引文件<br> 如果用图书管理系统做比喻的话，那么，<code>.frm文件</code>存放的是书架本身，<code>.MYD文件</code>存储具体的书籍，<code>.MYI文件</code>存储检索书籍的索引目录。<br> <code>.MYI文件</code>和<code>.MYD文件</code>可以存储在不同的文件目录中，从而分散IO读写压力，提高访问速度，具体操作可在创建表的时候，通过<code>DATA DIRECTORY</code>和<code>INDEX DIRECTORY</code>属性进行设置。</li>
 </ul>
 </li>
-<li>检查左右数组：左数组的元素均小于<code>x</code>，右数组的元素均大于<code>x</code>。<ul>
-<li>由于左数组元素和<code>x</code>的大小关系已经确定，只需要检查右数组和<code>x</code>的大小关系即可。</li>
-<li>如果右数组不符合要求，直接返回<code>false</code>；否则继续执行下一步</li>
+<li><p>适用范围<br> 由于MyISAM不支持事务，不支持外键，访问速度快的特点，适用于以下特点的数据库：<br> - 不要求事务完整性<br> - 操作主要是查找<code>SELECT</code>和<code>INSERT</code></p>
+</li>
+<li><p>安全性<br>MyISAM表中有一个标志，用于存储上次退出表是否是正常退出，每次启动该表之前会检查该标志，如果上次是异常退出，则考虑进行检查和修复。<br>可使用<code>CHECK TABLE</code>和<code>REPAIR TABLE</code>命令进行表的检查和修改。  </p>
+</li>
+<li><p>支持的存储格式</p>
+<ul>
+<li>静态表：每个条目长度固定</li>
+<li>动态表：每个条目长度不固定</li>
+<li>压缩表：压缩存储，节省空间<br>三者的特点如下所示：<br><img src="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94-2.png" alt="img"></li>
 </ul>
 </li>
-<li>对左右子数组，重复上述步骤;</li>
+<li><p>优缺点</p>
+<ol>
+<li>优点：访问速度快，</li>
+<li>缺点：不支持事务，不支持外键，不支持行级锁，不支持崩溃后的安全恢复，不支持并发插入（性能方面）</li>
+</ol>
+</li>
+</ol>
+<h2 id="2-InnoDB"><a href="#2-InnoDB" class="headerlink" title="2. InnoDB"></a>2. InnoDB</h2><ol>
+<li><p>自动增长列<br>指的是InnoDB支持用户手动插入的条目遵循索引项的自动增长，而不需要用户自己设置。</p>
+<p>然而，在InnoDB中，自动增长列必须是索引项，如果是组合索引，则是其中的第一列；而对于MyISAM，则可以是任意数据项。</p>
+<p> 创建一个表之后，其自动增长列的起始值默认是1，也可以在创建表的时候进行修改：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t1 (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    name <span class="type">CHAR</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB AUTO_INCREMENT<span class="operator">=</span>某个起始数字;</span><br></pre></td></tr></table></figure>
+<p> 在插入条目的时候，也可以通过<code>ALTER TABLE</code>命令进行修改：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 具体条目 AUTO_INCREMENT<span class="operator">=</span>某个起始数字;</span><br></pre></td></tr></table></figure></li>
+<li><p>外键约束</p>
+<ul>
+<li>在本文介绍的四个存储引擎中，只有InnoDB支持外键约束。</li>
+<li>外键约束可以指定数据表中，对父表的操作如何影响子表，具体参数如下：<ul>
+<li><code>restrict</code>：父表的删除和更新不会对子表产生影响</li>
+<li><code>cascade</code>：级联操作，父表的删除和更新操作会影响子表，</li>
+<li><code>set null</code>：父表的删除和更新将会使得子表中相关条目设置为<code>null</code>值</li>
+<li><code>no action</code>：效果等同于<code>restrict</code>，父表的删除和更新操作不会对子表产生影响。</li>
 </ul>
-<p>终止条件：数组为空或者只有一个元素，返回<code>true</code></p>
-<h1 id="3-数据类型功能函数总结"><a href="#3-数据类型功能函数总结" class="headerlink" title="3. 数据类型功能函数总结"></a>3. 数据类型功能函数总结</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组</span></span><br><span class="line"><span class="type">int</span> len=arrayname.length;<span class="comment">//数组长度</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="4-java-代码"><a href="#4-java-代码" class="headerlink" title="4. java 代码"></a>4. java 代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">verifyPostorder</span><span class="params">(<span class="type">int</span>[] postorder)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> recur(postorder,<span class="number">0</span>,postorder.length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">recur</span><span class="params">(<span class="type">int</span>[] postorder,<span class="type">int</span> start,<span class="type">int</span> end)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(end-start&lt;=<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="type">int</span> root_val=postorder[end];</span><br><span class="line">            <span class="type">int</span> i=start;</span><br><span class="line">            <span class="keyword">for</span>(i=start;i&lt;end;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(postorder[i]&gt;root_val)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//得到i,左右数组[start,i-1],[i,end-1]</span></span><br><span class="line">            <span class="comment">//检查左右数组</span></span><br><span class="line">            <span class="type">int</span> flag=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=i;j&lt;end &amp;&amp; flag==<span class="number">0</span>;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(postorder[j]&lt;root_val)&#123;</span><br><span class="line">                    flag=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>  recur(postorder,start,i-<span class="number">1</span>)&amp;&amp;recur(postorder,i,end-<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="5-踩坑小记"><a href="#5-踩坑小记" class="headerlink" title="5. 踩坑小记"></a>5. 踩坑小记</h1><h2 id="递归调用，显示StackOverflowError"><a href="#递归调用，显示StackOverflowError" class="headerlink" title="递归调用，显示StackOverflowError"></a>递归调用，显示<code>StackOverflowError</code></h2><p>递归函数的部分为：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span>  recur(postorder,start,i-<span class="number">1</span>)&amp;&amp;recur(postorder,i,end-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>而我一开始写成了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span>  recur(postorder,start,i-<span class="number">1</span>)&amp;&amp;recur(postorder,i,end);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后一直报错显示<code>StackOverflowError</code>，后来发现是右数组划分的时候，传入<code>end</code>就会导致后序遍历一直停留在和根节点的比较上，无法退出循环，导致栈溢出。</p>
+</li>
+<li>外键约束的开关<br> 根据<code>set forgein_key_checks=0或者1</code>的值，可以开启（值为1）或者关闭（值为0）外键约束。</li>
+</ul>
+</li>
+<li><p>优缺点</p>
+<ol>
+<li>优点：支持回滚等事务处理</li>
+<li>缺点：访问效率低，花费内存存储索引结构，占用内存较大</li>
+</ol>
+</li>
+</ol>
+<h2 id="3-MEMORY"><a href="#3-MEMORY" class="headerlink" title="3. MEMORY"></a>3. MEMORY</h2><ol>
+<li>使用内存内容<br>MEMORY表使用内存中的数据进行存储管理，因此，在使用期间需要足够的内存空间，当使用结束之后，需要进行内存释放，命令如下 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">FROM</span> MEMORY 表名;</span><br><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">table</span> 表名;</span><br></pre></td></tr></table></figure></li>
+<li>hash结构<br>MEMORY表的索引结构为hash，因此，有很快的访问速度，但是也引申出对于数据库操作指令的响应性能问题：<ul>
+<li>相等比较：<code>=</code>，<code>&lt;=&gt;</code>，性能较好</li>
+<li>范围比较：<code>&gt;</code>，<code>&lt;</code>，<code>BETWEEN</code>，<code>IN</code>，<code>LIKE</code>，性能较差</li>
+<li>排序比较：<code>order by</code>，性能较差<br>可通过改进为B树结构来提高性能</li>
+</ul>
+</li>
+<li>文件组成：<br> 使用内存中的数据来存储，只需要一个<code>.frm</code>文件，用于存储表结构定义。</li>
+<li>固定长度存储<br> 创建该表的时候，需要设置固定长度，内部的条目长度固定，可设置最大行数来确定所需要的内存大小，<code>max_heap_table_size</code>参数用于设置最大行数。<br> 因此，对于<code>TEXT</code>、<code>BLOB</code>等可变长度数据类型并不支持，但是对于<code>VARCHAR</code>数据类型，在实际的数据库操作中依然看作固定长度，因此可支持<code>VARCHAR</code>数据类型。</li>
+<li>优缺点<br> 根据上文的分析，可得出MEMORY表的优缺点如下：<ul>
+<li>优点： 访问速度快，使用hash存储对于相等比较操作性能良好，使用内存中的数据而不用额外生成新文件</li>
+<li>缺点： 只支持固定长度的数据条目，对于可变长度的数据类型不支持，且使用hash索引，对于范围、排序类的数据比较操作性能较差，需要额外释放内存。</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-MERGE"><a href="#4-MERGE" class="headerlink" title="4. MERGE"></a>4. MERGE</h2><ol>
+<li>文件组成<ul>
+<li>.frm: 存储表的框架信息</li>
+<li>.MRG：存储表的定义信息</li>
+</ul>
+</li>
+<li>具体操作<br>Merge存储引擎相当于MyISAM的一个集合，需要多个表结构相同的MyISAM组合，本身并不存在数据，仅仅是一个结构，增删改查等操作还是需要对于具体的MyISAM表进行操作。</li>
+<li>优缺点<ul>
+<li>优点： 管理多个MyISAM表，方便操作</li>
+<li>缺点： 本身是多个MyISAM表的复合表，因此，MyISAM表的缺点都有。</li>
+</ul>
+</li>
+</ol>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>对上述四种存储引擎进行比较，得出如下表格：<br><img src="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%AF%94%E8%BE%83.png" alt="img"></p>
+<ol start="6">
+<li>参考博客</li>
+</ol>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hcfinal/p/10431230.html">参考博客-1</a></li>
+</ul>
 
     </div>
 
@@ -308,7 +375,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/" title="剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）">http://example.com/2023/04/22/剑指-Offer-33-二叉搜索树的后序遍历序列（java解题）/</a>
+    <a href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/" title="【后端面经-数据库】MySQL的存储引擎.md">http://example.com/2023/06/30/【后端面经-数据库】MySQL的存储引擎-md-1/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -318,6 +385,11 @@
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+              <a href="/tags/DBMS/" rel="tag"># DBMS</a>
+              <a href="/tags/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%EF%BC%8C%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F/" rel="tag"># 存储引擎，后端面经</a>
+          </div>
 
         
 
@@ -325,13 +397,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/04/14/%E3%80%90%E8%AF%A6%E8%A7%A3%E3%80%91Matlab%E5%AF%BC%E5%85%A5%E5%A4%9A%E4%B8%AA-mat%E6%96%87%E4%BB%B6%E5%B9%B6%E7%94%BB%E5%9B%BE/" rel="prev" title="【详解】Matlab导入多个.mat文件并画图">
-      <i class="fa fa-chevron-left"></i> 【详解】Matlab导入多个.mat文件并画图
+    <a href="/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/" rel="prev" title="剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）">
+      <i class="fa fa-chevron-left"></i> 剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/" rel="next" title="【后端面经-数据库】MySQL的存储引擎.md">
-      【后端面经-数据库】MySQL的存储引擎.md <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -391,7 +460,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E9%A2%98%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">1. 题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">2. 解题思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8A%9F%E8%83%BD%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">3. 数据类型功能函数总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-java-%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">4. java 代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E8%B8%A9%E5%9D%91%E5%B0%8F%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">5. 踩坑小记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8%EF%BC%8C%E6%98%BE%E7%A4%BAStackOverflowError"><span class="nav-number">5.1.</span> <span class="nav-text">递归调用，显示StackOverflowError</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">1.</span> <span class="nav-text">MySQL的存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E6%9F%A5%E7%9C%8B%E5%92%8C%E4%BF%AE%E6%94%B9"><span class="nav-number">1.1.</span> <span class="nav-text">0. 存储引擎的查看和修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-MyISAM"><span class="nav-number">1.2.</span> <span class="nav-text">1. MyISAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-InnoDB"><span class="nav-number">1.3.</span> <span class="nav-text">2. InnoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MEMORY"><span class="nav-number">1.4.</span> <span class="nav-text">3. MEMORY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-MERGE"><span class="nav-number">1.5.</span> <span class="nav-text">4. MERGE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">5. 总结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
