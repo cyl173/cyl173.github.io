@@ -48,25 +48,25 @@
   };
 </script>
 
-  <meta name="description" content="MySQL的存储引擎mysql主要有四类存储引擎，目前主要使用InnoDB作为存储引擎。 0. 存储引擎的查看和修改 查看当前数据库的默认存储引擎">
+  <meta name="description" content="@TOC 1. 线程池介绍1.1 基本作用对多个线程使用的资源进行集中管理。  降低资源消耗： 复用线程，降低线程创建和销毁造成的消耗；">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【后端面经-数据库】MySQL的存储引擎.md">
-<meta property="og:url" content="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/index.html">
+<meta property="og:title" content="【后端面经-Java】Java线程池满了的处理策略.md">
+<meta property="og:url" content="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E4%BA%86%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/index.html">
 <meta property="og:site_name" content="CrazyPixelCode&#39;s Space">
-<meta property="og:description" content="MySQL的存储引擎mysql主要有四类存储引擎，目前主要使用InnoDB作为存储引擎。 0. 存储引擎的查看和修改 查看当前数据库的默认存储引擎">
+<meta property="og:description" content="@TOC 1. 线程池介绍1.1 基本作用对多个线程使用的资源进行集中管理。  降低资源消耗： 复用线程，降低线程创建和销毁造成的消耗；">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94-2.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%AF%94%E8%BE%83.png">
-<meta property="article:published_time" content="2023-06-30T14:35:46.000Z">
-<meta property="article:modified_time" content="2023-06-30T14:53:32.894Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8957a7c68e814a1da2b64a935de500d9.png#pic_center">
+<meta property="article:published_time" content="2023-06-30T14:37:44.000Z">
+<meta property="article:modified_time" content="2023-07-01T11:28:56.058Z">
 <meta property="article:author" content="CrazyPixel">
-<meta property="article:tag" content="MySQL">
-<meta property="article:tag" content="DBMS">
-<meta property="article:tag" content="存储引擎，后端面经">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="后端面经">
+<meta property="article:tag" content="线程">
+<meta property="article:tag" content="线程池">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94-2.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/8957a7c68e814a1da2b64a935de500d9.png#pic_center">
 
-<link rel="canonical" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/">
+<link rel="canonical" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E4%BA%86%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/">
 
 
 <script id="page-configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>【后端面经-数据库】MySQL的存储引擎.md | CrazyPixelCode's Space</title>
+  <title>【后端面经-Java】Java线程池满了的处理策略.md | CrazyPixelCode's Space</title>
   
 
 
@@ -192,7 +192,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E4%BA%86%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
@@ -205,7 +205,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【后端面经-数据库】MySQL的存储引擎.md
+          【后端面经-Java】Java线程池满了的处理策略.md
         </h1>
 
         <div class="post-meta">
@@ -214,10 +214,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-06-30 22:35:46 / 修改时间：22:53:32" itemprop="dateCreated datePublished" datetime="2023-06-30T22:35:46+08:00">2023-06-30</time>
+              <time title="创建时间：2023-06-30 22:37:44" itemprop="dateCreated datePublished" datetime="2023-06-30T22:37:44+08:00">2023-06-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:28:56" itemprop="dateModified" datetime="2023-07-01T19:28:56+08:00">2023-07-01</time>
+              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -232,7 +238,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -251,106 +257,112 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="MySQL的存储引擎"><a href="#MySQL的存储引擎" class="headerlink" title="MySQL的存储引擎"></a>MySQL的存储引擎</h1><p>mysql主要有四类存储引擎，目前主要使用InnoDB作为存储引擎。</p>
-<h2 id="0-存储引擎的查看和修改"><a href="#0-存储引擎的查看和修改" class="headerlink" title="0. 存储引擎的查看和修改"></a>0. 存储引擎的查看和修改</h2><ul>
-<li>查看当前数据库的默认存储引擎</li>
+        <p>@<a href="%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-java%E3%80%91java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5">TOC</a></p>
+<h2 id="1-线程池介绍"><a href="#1-线程池介绍" class="headerlink" title="1. 线程池介绍"></a>1. 线程池介绍</h2><h3 id="1-1-基本作用"><a href="#1-1-基本作用" class="headerlink" title="1.1 基本作用"></a>1.1 基本作用</h3><p>对多个线程使用的资源进行集中管理。</p>
+<ul>
+<li>降低资源消耗：<ul>
+<li>复用线程，降低线程创建和销毁造成的消耗；</li>
+</ul>
+</li>
 </ul>
  <span id="more"></span>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;default_storage_engine&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>查看当前数据库所支持的存储引擎<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> engine;<span class="operator">/</span><span class="operator">/</span>语句<span class="number">1</span></span><br><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;have_%&#x27;</span>;<span class="operator">/</span><span class="operator">/</span>语句<span class="number">2</span></span><br></pre></td></tr></table></figure></li>
-<li>查看支持事务处理的存储引擎<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> engine <span class="keyword">from</span> information_schema.engines <span class="keyword">where</span> transactions<span class="operator">=</span><span class="string">&#x27;yes&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
-<li>设置新表的存储引擎<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名 (字段名 字段类型) engine<span class="operator">=</span>存储引擎;<span class="operator">/</span><span class="operator">/</span>语句<span class="number">1</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名 (字段名 字段类型) type<span class="operator">=</span>存储引擎;<span class="operator">/</span><span class="operator">/</span>语句<span class="number">2</span></span><br></pre></td></tr></table></figure></li>
+<li>线程资源管理<ul>
+<li>提高管理效率；</li>
 </ul>
-<h2 id="1-MyISAM"><a href="#1-MyISAM" class="headerlink" title="1. MyISAM"></a>1. MyISAM</h2><ol>
-<li><p>文件组成</p>
+</li>
+<li>提高线程的响应速度<ul>
+<li>在线程池中随时等待被执行，CPU不用等到线程创建时间；</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-处理流程"><a href="#1-2-处理流程" class="headerlink" title="1.2 处理流程"></a>1.2 处理流程</h3><p>当一个线程进入线程池之后，会进行如下的处理步骤：</p>
 <ul>
-<li>.frm文件：表结构定义，<code>frame</code>，可以理解成对整体框架的存储</li>
-<li>.MYD文件：数据文件，存储的是具体的数据库数据条目</li>
-<li>.MYI文件：索引文件，存储的是数据库表项的索引文件<br> 如果用图书管理系统做比喻的话，那么，<code>.frm文件</code>存放的是书架本身，<code>.MYD文件</code>存储具体的书籍，<code>.MYI文件</code>存储检索书籍的索引目录。<br> <code>.MYI文件</code>和<code>.MYD文件</code>可以存储在不同的文件目录中，从而分散IO读写压力，提高访问速度，具体操作可在创建表的时候，通过<code>DATA DIRECTORY</code>和<code>INDEX DIRECTORY</code>属性进行设置。</li>
-</ul>
-</li>
-<li><p>适用范围<br> 由于MyISAM不支持事务，不支持外键，访问速度快的特点，适用于以下特点的数据库：<br> - 不要求事务完整性<br> - 操作主要是查找<code>SELECT</code>和<code>INSERT</code></p>
-</li>
-<li><p>安全性<br>MyISAM表中有一个标志，用于存储上次退出表是否是正常退出，每次启动该表之前会检查该标志，如果上次是异常退出，则考虑进行检查和修复。<br>可使用<code>CHECK TABLE</code>和<code>REPAIR TABLE</code>命令进行表的检查和修改。  </p>
-</li>
-<li><p>支持的存储格式</p>
+<li><p>首先查看<strong>核心线程池</strong>是否满</p>
 <ul>
-<li>静态表：每个条目长度固定</li>
-<li>动态表：每个条目长度不固定</li>
-<li>压缩表：压缩存储，节省空间<br>三者的特点如下所示：<br><img src="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94-2.png" alt="img"></li>
+<li>如果没满，线程将在此处等待被调度执行；</li>
 </ul>
 </li>
-<li><p>优缺点</p>
-<ol>
-<li>优点：访问速度快，</li>
-<li>缺点：不支持事务，不支持外键，不支持行级锁，不支持崩溃后的安全恢复，不支持并发插入（性能方面）</li>
-</ol>
-</li>
-</ol>
-<h2 id="2-InnoDB"><a href="#2-InnoDB" class="headerlink" title="2. InnoDB"></a>2. InnoDB</h2><ol>
-<li><p>自动增长列<br>指的是InnoDB支持用户手动插入的条目遵循索引项的自动增长，而不需要用户自己设置。</p>
-<p>然而，在InnoDB中，自动增长列必须是索引项，如果是组合索引，则是其中的第一列；而对于MyISAM，则可以是任意数据项。</p>
-<p> 创建一个表之后，其自动增长列的起始值默认是1，也可以在创建表的时候进行修改：</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t1 (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    name <span class="type">CHAR</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB AUTO_INCREMENT<span class="operator">=</span>某个起始数字;</span><br></pre></td></tr></table></figure>
-<p> 在插入条目的时候，也可以通过<code>ALTER TABLE</code>命令进行修改：</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 具体条目 AUTO_INCREMENT<span class="operator">=</span>某个起始数字;</span><br></pre></td></tr></table></figure></li>
-<li><p>外键约束</p>
+<li><p>如果核心线程池满了，那么查看<strong>队列</strong>是否满了</p>
 <ul>
-<li>在本文介绍的四个存储引擎中，只有InnoDB支持外键约束。</li>
-<li>外键约束可以指定数据表中，对父表的操作如何影响子表，具体参数如下：<ul>
-<li><code>restrict</code>：父表的删除和更新不会对子表产生影响</li>
-<li><code>cascade</code>：级联操作，父表的删除和更新操作会影响子表，</li>
-<li><code>set null</code>：父表的删除和更新将会使得子表中相关条目设置为<code>null</code>值</li>
-<li><code>no action</code>：效果等同于<code>restrict</code>，父表的删除和更新操作不会对子表产生影响。</li>
+<li>如果没满，线程在这里等待进入核心线程池；</li>
 </ul>
 </li>
-<li>外键约束的开关<br> 根据<code>set forgein_key_checks=0或者1</code>的值，可以开启（值为1）或者关闭（值为0）外键约束。</li>
-</ul>
-</li>
-<li><p>优缺点</p>
-<ol>
-<li>优点：支持回滚等事务处理</li>
-<li>缺点：访问效率低，花费内存存储索引结构，占用内存较大</li>
-</ol>
-</li>
-</ol>
-<h2 id="3-MEMORY"><a href="#3-MEMORY" class="headerlink" title="3. MEMORY"></a>3. MEMORY</h2><ol>
-<li>使用内存内容<br>MEMORY表使用内存中的数据进行存储管理，因此，在使用期间需要足够的内存空间，当使用结束之后，需要进行内存释放，命令如下 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">FROM</span> MEMORY 表名;</span><br><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">table</span> 表名;</span><br></pre></td></tr></table></figure></li>
-<li>hash结构<br>MEMORY表的索引结构为hash，因此，有很快的访问速度，但是也引申出对于数据库操作指令的响应性能问题：<ul>
-<li>相等比较：<code>=</code>，<code>&lt;=&gt;</code>，性能较好</li>
-<li>范围比较：<code>&gt;</code>，<code>&lt;</code>，<code>BETWEEN</code>，<code>IN</code>，<code>LIKE</code>，性能较差</li>
-<li>排序比较：<code>order by</code>，性能较差<br>可通过改进为B树结构来提高性能</li>
-</ul>
-</li>
-<li>文件组成：<br> 使用内存中的数据来存储，只需要一个<code>.frm</code>文件，用于存储表结构定义。</li>
-<li>固定长度存储<br> 创建该表的时候，需要设置固定长度，内部的条目长度固定，可设置最大行数来确定所需要的内存大小，<code>max_heap_table_size</code>参数用于设置最大行数。<br> 因此，对于<code>TEXT</code>、<code>BLOB</code>等可变长度数据类型并不支持，但是对于<code>VARCHAR</code>数据类型，在实际的数据库操作中依然看作固定长度，因此可支持<code>VARCHAR</code>数据类型。</li>
-<li>优缺点<br> 根据上文的分析，可得出MEMORY表的优缺点如下：<ul>
-<li>优点： 访问速度快，使用hash存储对于相等比较操作性能良好，使用内存中的数据而不用额外生成新文件</li>
-<li>缺点： 只支持固定长度的数据条目，对于可变长度的数据类型不支持，且使用hash索引，对于范围、排序类的数据比较操作性能较差，需要额外释放内存。</li>
-</ul>
-</li>
-</ol>
-<h2 id="4-MERGE"><a href="#4-MERGE" class="headerlink" title="4. MERGE"></a>4. MERGE</h2><ol>
-<li>文件组成<ul>
-<li>.frm: 存储表的框架信息</li>
-<li>.MRG：存储表的定义信息</li>
-</ul>
-</li>
-<li>具体操作<br>Merge存储引擎相当于MyISAM的一个集合，需要多个表结构相同的MyISAM组合，本身并不存在数据，仅仅是一个结构，增删改查等操作还是需要对于具体的MyISAM表进行操作。</li>
-<li>优缺点<ul>
-<li>优点： 管理多个MyISAM表，方便操作</li>
-<li>缺点： 本身是多个MyISAM表的复合表，因此，MyISAM表的缺点都有。</li>
-</ul>
-</li>
-</ol>
-<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>对上述四种存储引擎进行比较，得出如下表格：<br><img src="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%AF%94%E8%BE%83.png" alt="img"></p>
-<ol start="6">
-<li>参考博客</li>
-</ol>
+<li><p>如果队列也满了，那么查看<strong>临时线程池</strong>是否满了</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hcfinal/p/10431230.html">参考博客-1</a></li>
+<li>如果没满，创建临时线程来处理任务。</li>
 </ul>
+</li>
+<li><p>如果临时线程池也满了，那就要根据<code>2.线程池满的处理策略</code>进行线程处理。<br>如下图所示：<br><img src="https://img-blog.csdnimg.cn/8957a7c68e814a1da2b64a935de500d9.png#pic_center" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<p>当调度者需要调度一个线程的时候，按照如下步骤：</p>
+<ul>
+<li>从<strong>核心线程池</strong>中获取一个线程，执行任务；</li>
+<li>如果线程处于等待态，获取下一个线程继续执行；</li>
+<li>某一个任务执行完毕后，线程返回<code>就绪态</code>而不是<code>终止态</code>，放入线程池中复用。</li>
+</ul>
+<h3 id="1-3-线程池大小设置"><a href="#1-3-线程池大小设置" class="headerlink" title="1.3 线程池大小设置"></a>1.3 线程池大小设置</h3><ul>
+<li><p>CPU操作密集的任务</p>
+<ul>
+<li>由于线程操作多半需要占据CPU资源，因此一个线程运行的过程中基本上很少会出现<code>某一线程进入等待态而调度下一个线程</code>的情况；</li>
+<li>因此CPU调度线程的速度偏慢，因此线程池大小不应过大，一般为<code>CPU核心数+1</code>；这样可以保证CPU的效率最高；</li>
+<li>如果线程池容量过大，那么不仅对CPU运行是一个很大的负担，而且大量线程都处于等待运行的阶段，等待时间过长，可能出现响应过慢的情况。</li>
+</ul>
+</li>
+<li><p>I&#x2F;O操作密集的任务</p>
+<ul>
+<li>对于I&#x2F;O操作密集的任务，线程对于CPU的资源占用常常被I&#x2F;O等操作打断，此时线程进入等待态，CPU继续调度下一个线程；</li>
+<li>CPU调度线程的速度偏快，线程池大小可以尽量大一点，这样能够保障CPU资源的利用率，提高线程执行效率；</li>
+<li>如果线程池容量过小，CPU在调度一段时间之后，所有线程都进入等待态，此时就会出现CPU<code>空等</code>的情况，不利于资源有效利用。</li>
+</ul>
+</li>
+<li><p><strong>注意</strong></p>
+</li>
+<li><p>对于<code>就绪态</code>、<code>等待态</code>等线程状态和生命周期的介绍，可参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/CrazyPixel/p/17493307.html">这篇博客</a></p>
+</li>
+</ul>
+<h3 id="1-4-线程池参数"><a href="#1-4-线程池参数" class="headerlink" title="1.4 线程池参数"></a>1.4 线程池参数</h3><p>线程池的构造方法如下所示：<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ThreadPoolExecutor</span><span class="params">(<span class="type">int</span> corePoolSize,</span></span><br><span class="line"><span class="params">                        <span class="type">int</span> maximumPoolSize,</span></span><br><span class="line"><span class="params">                        <span class="type">long</span> keepAliveTime,</span></span><br><span class="line"><span class="params">                        TimeUnit unit,</span></span><br><span class="line"><span class="params">                        BlockingQueue&lt;Runnable&gt; workQueue,</span></span><br><span class="line"><span class="params">                        ThreadFactory threadFactory,</span></span><br><span class="line"><span class="params">                        RejectedExecutionHandler handler)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>线程池的创建包含以下参数：</p>
+<ul>
+<li>corePoolSize：核心线程池容量大小<ul>
+<li>如前文所述，线程进行核心线程池即可等待调度执行</li>
+</ul>
+</li>
+<li>maximumPoolSize：最大线程池大小<ul>
+<li>通过这个来判断线程池是否已满。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MaximumPoolSize = CorePoolSize + WorkQueue + 临时线程池大小</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>workQueue：任务队列<ul>
+<li>无法进入核心线程池的线程将进入任务队列等待进入池中；</li>
+<li>阻塞队列对象，一般需要设定容量大小</li>
+</ul>
+</li>
+<li>keepAliveTime：线程存活时间<ul>
+<li>线程池已满的情况下，空闲多余的线程有个存活时间，超过这个时间还没有进入核心线程池，那么将被丢弃；</li>
+</ul>
+</li>
+<li>timeUnit：线程存活时间单位<ul>
+<li>配合线程存活时间使用；</li>
+</ul>
+</li>
+<li>handler：拒绝策略<ul>
+<li>当前线程池满了之后(超过maxmumPoolSize)，对于新的线程的处理策略,</li>
+<li>包括四种，在<code>2.1 默认--拒绝策略handler</code>有详细论述</li>
+</ul>
+</li>
+<li>threadFactory：线程工厂<ul>
+<li>用于创建线程池中的线程。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-线程池满的处理策略"><a href="#2-线程池满的处理策略" class="headerlink" title="2. 线程池满的处理策略"></a>2. 线程池满的处理策略</h2><h3 id="2-1-默认–拒绝策略handler"><a href="#2-1-默认–拒绝策略handler" class="headerlink" title="2.1 默认–拒绝策略handler"></a>2.1 默认–拒绝策略handler</h3><p>线程池满了之后，一般的处理方式是丢弃某一线程，并且抛出异常。<br>Handler有四种策略：</p>
+<ul>
+<li>AbortPolicy：直接抛出异常<code>RejectedExecutionException</code>。</li>
+<li>DiscardPolicy：直接丢弃任务，但是不抛出异常（ 默认）。</li>
+<li>DiscardOldestPolicy：丢弃队列中最旧的任务，然后重新尝试执行任务；</li>
+<li>CallerRunsPolicy：由调用线程处理该任务。</li>
+</ul>
+<h2 id="3-参考资料"><a href="#3-参考资料" class="headerlink" title="3. 参考资料"></a>3. 参考资料</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/s/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%AD%89%E5%BE%85%E9%98%9F%E5%88%97%E6%BB%A1%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E">参考博客-1</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38336658/article/details/119907919">参考博客-2</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45859203/article/details/126703920?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126703920-blog-119907919.235%5Ev38%5Epc_relevant_anti_t3&spm=1001.2101.3001.4242.1&utm_relevant_index=3">参考博客-3</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/dl674756321/article/details/100537139?spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-4-100537139-blog-119907919.235%5Ev38%5Epc_relevant_anti_t3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-4-100537139-blog-119907919.235%5Ev38%5Epc_relevant_anti_t3&utm_relevant_index=9">参考博客-4</a></p>
 
     </div>
 
@@ -375,7 +387,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/" title="【后端面经-数据库】MySQL的存储引擎.md">http://example.com/2023/06/30/【后端面经-数据库】MySQL的存储引擎-md-1/</a>
+    <a href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E4%BA%86%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" title="【后端面经-Java】Java线程池满了的处理策略.md">http://example.com/2023/06/30/【后端面经-Java】Java线程池满了的处理策略/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -386,9 +398,10 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
-              <a href="/tags/DBMS/" rel="tag"># DBMS</a>
-              <a href="/tags/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%EF%BC%8C%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F/" rel="tag"># 存储引擎，后端面经</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F/" rel="tag"># 后端面经</a>
+              <a href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag"># 线程</a>
+              <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag"># 线程池</a>
           </div>
 
         
@@ -397,10 +410,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/" rel="prev" title="剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）">
-      <i class="fa fa-chevron-left"></i> 剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）
+    <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Synchronize%E5%92%8CReentrantlock%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="prev" title="【后端面经-Java】Synchronize和Reentrantlock的区别.md">
+      <i class="fa fa-chevron-left"></i> 【后端面经-Java】Synchronize和Reentrantlock的区别.md
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3/" rel="next" title="【后端面经-Java】Java创建线程的方法详解.md">
+      【后端面经-Java】Java创建线程的方法详解.md <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -460,7 +476,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">1.</span> <span class="nav-text">MySQL的存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E6%9F%A5%E7%9C%8B%E5%92%8C%E4%BF%AE%E6%94%B9"><span class="nav-number">1.1.</span> <span class="nav-text">0. 存储引擎的查看和修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-MyISAM"><span class="nav-number">1.2.</span> <span class="nav-text">1. MyISAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-InnoDB"><span class="nav-number">1.3.</span> <span class="nav-text">2. InnoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MEMORY"><span class="nav-number">1.4.</span> <span class="nav-text">3. MEMORY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-MERGE"><span class="nav-number">1.5.</span> <span class="nav-text">4. MERGE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">5. 总结</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">1. 线程池介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 基本作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 处理流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 线程池大小设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8F%82%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 线程池参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">2. 线程池满的处理策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E9%BB%98%E8%AE%A4%E2%80%93%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5handler"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 默认–拒绝策略handler</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">3. 参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -476,14 +492,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -529,13 +545,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">13k</span>
+    <span title="站点总字数">41k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">11 分钟</span>
+    <span title="站点阅读时长">38 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v6.3.0
   </div>

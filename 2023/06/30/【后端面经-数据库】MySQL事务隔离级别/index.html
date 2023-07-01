@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://example.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="MySQL事务隔离级别0. 事务的概念事务指的是一连串的集中操作指令，一个事务的执行必须执行完所有的动作才能算作执行结束。事务具有四个特点，简记作ACID：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【后端面经-数据库】MySQL事务隔离级别.md">
+<meta property="og:url" content="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/index.html">
+<meta property="og:site_name" content="CrazyPixelCode&#39;s Space">
+<meta property="og:description" content="MySQL事务隔离级别0. 事务的概念事务指的是一连串的集中操作指令，一个事务的执行必须执行完所有的动作才能算作执行结束。事务具有四个特点，简记作ACID：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB.png">
+<meta property="article:published_time" content="2023-06-30T14:35:36.000Z">
+<meta property="article:modified_time" content="2023-07-01T11:29:11.531Z">
+<meta property="article:author" content="CrazyPixel">
+<meta property="article:tag" content="后端面经">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="DBMS">
+<meta property="article:tag" content="事务">
+<meta property="article:tag" content="隔离级别">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB.png">
+
+<link rel="canonical" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>【后端面经-数据库】MySQL事务隔离级别.md | CrazyPixelCode's Space</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+	<a target="_blank" rel="noopener" href="https://github.com/cyl173" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CrazyPixelCode's Space</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+      <meta itemprop="name" content="CrazyPixel">
+      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyPixelCode's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【后端面经-数据库】MySQL事务隔离级别.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-30 22:35:36" itemprop="dateCreated datePublished" datetime="2023-06-30T22:35:36+08:00">2023-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:29:11" itemprop="dateModified" datetime="2023-07-01T19:29:11+08:00">2023-07-01</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="MySQL事务隔离级别"><a href="#MySQL事务隔离级别" class="headerlink" title="MySQL事务隔离级别"></a>MySQL事务隔离级别</h1><h2 id="0-事务的概念"><a href="#0-事务的概念" class="headerlink" title="0. 事务的概念"></a>0. 事务的概念</h2><p>事务指的是一连串的集中操作指令，一个事务的执行必须执行完所有的动作才能算作执行结束。事务具有四个特点，简记作<code>ACID</code>：</p>
+ <span id="more"></span>
+<ul>
+<li><code>A</code>-Atomicity: 原子性，事务的执行必须保证所有的动作都执行完毕；</li>
+<li><code>C</code>-Consistency: 一致性，事务的执行必须保证数据的一致性；</li>
+<li><code>I</code>-Isolation: 隔离性，事务的执行必须保证数据的隔离性； </li>
+<li><code>D</code>-Durability: 持久性，事务的执行必须保证数据的持久性。</li>
+</ul>
+<p>而事务隔离级别则是在大型数据库多个事务执行的过程中，针对事务并行进行的机制设计，主要是围绕<code>Isolation</code>进行设计的。</p>
+<h2 id="1-三类问题"><a href="#1-三类问题" class="headerlink" title="1. 三类问题"></a>1. 三类问题</h2><ol>
+<li>脏读<ul>
+<li>过程：<ul>
+<li>事务A正在写某一行数据，未提交；</li>
+<li>事务B并行读取该行数据，用于操作；</li>
+<li>事务A撤销写操作，这是对于事务B来说，之前的读操作就是错误的。</li>
+</ul>
+</li>
+<li>读事务读取了写事务未提交的数据，而造成错误读取。</li>
+<li>举例<ul>
+<li>小明今天发工资，一开始在财务系统上查询是工资50000元，很高兴地准备买新电脑，但是这是财务正在敲数据的时候一时疏忽，实际上工资只有5000元，财务在审核数据准备提交的时候发现了这个错误并修改过来，小明很失望。</li>
+<li>这里的小明就是<code>读事务</code>，财务就是<code>写事务</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>不可重复读<ul>
+<li>过程：<ul>
+<li>事务B读取的是数据库中的某一行数据，用于操作；</li>
+<li>事务A开始对这行数据进行写操作并完成，数据库的数据改变；</li>
+<li>事务B再次读该数据库的这一行数据，发现数据改变；</li>
+</ul>
+</li>
+<li>读事务两次读同一行数据，但是两次读取的数据并不一致。</li>
+<li>举例 <ul>
+<li>小明和小红打赌，这个月工资是1k，两个人几乎同时发出查询请求，但是小明先读取到了原始数据是1k，而财务核对之后再次修改了工资为2k，小红在这之后才并发读取到工资是2k，两人认为读操作是并行的，同时进行，虽然知道这中间可能是财务进行了修改，但是两人都认为自己读取的才是最终数据，因此吵了起来。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>幻读<ul>
+<li>过程<ul>
+<li>事务B读取数据库中的一批数据，用于操作；</li>
+<li>事务A添加了一行数据，并完成操作，数据库的数据改变；</li>
+<li>事务B再次读该数据库的数据，发现这一批数据改变；</li>
+</ul>
+</li>
+<li>读事务两次读取同一行数据，但是两次读取的数据不一致。（这和<code>不可重复读</code>操作是一致的）。</li>
+<li>举例<ul>
+<li>小明被领导要求，改动财务系统上的ID数据格式，从A格式全都转为B格式，小明读取数据库中的数据之后开始修改，这时候，财务发现新来了一位员工叫小红，于是把小红的记录添加在财务系统上，ID格式依然是A格式。小明工作完成之后给领导看，领导却发现有一个人的数据没有改过来，很是恼火，把小明批评了一番。</li>
+</ul>
+</li>
+<li>幻读和不可重复读的区别<ul>
+<li>幻读是针对同一批数据，不可重复读针对的是同一行数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-事务隔离级别"><a href="#2-事务隔离级别" class="headerlink" title="2. 事务隔离级别"></a>2. 事务隔离级别</h2><ol>
+<li>读未提交（read uncommitted）</li>
+</ol>
+<ul>
+<li>一个事务在写某一行数据的时候，允许其他事务并行读取该行数据，但是不允许写该行数据；</li>
+<li>允许多个事务并行读取数据库中的数据，但是不允许并行写入某一行数据；</li>
+<li>可能会出现<code>脏读</code>:</li>
+<li>解决方案：排他锁</li>
+</ul>
+<ol start="2">
+<li><p>读已提交（read committed）</p>
+<ul>
+<li>一个事务在写某一行数据的时候，不允许其他事务读或者写该行数据；</li>
+<li>允许多个事务并行读取数据库的数据；</li>
+<li>可能都造成<code>不可重复读</code>：</li>
+</ul>
+</li>
+<li><p>可重复读（repeatable read）</p>
+<ul>
+<li>一个事务在读数据的时候，其他事务不允许写，可以读。</li>
+<li>一个事务在写数据的时候，其他事务不可以读或者写。</li>
+<li>可能会造成<code>幻读</code>：</li>
+<li>MySQL默认的隔离级别。</li>
+</ul>
+</li>
+<li><p>串行化（serializable）</p>
+<ul>
+<li>一个事务一个事务串行执行，不允许任何事物并行；</li>
+<li>能够解决<code>幻读</code>、<code>不可重复读</code>、<code>脏读</code>的问题；</li>
+<li>成本高，一般不适用</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-操作指令"><a href="#3-操作指令" class="headerlink" title="3. 操作指令"></a>3. 操作指令</h2><ol>
+<li>查看当前的隔离级别<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@tx</span>_isolation;</span><br></pre></td></tr></table></figure></li>
+<li>设置隔离级别<pre><code class="sql"> set  [glogal | session]  transaction isolation level 隔离级别名称;//方式1
+ set tx_isolation=&#39;隔离级别名称&#39;;//方式2
+``
+</code></pre>
+</li>
+</ol>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>对前期的事务隔离级别做一个表格梳理<br><img src="https://cdn.jsdelivr.net/gh/cyl173/Imagebed/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB.png" alt="img"></p>
+<h2 id="5-参考博文"><a href="#5-参考博文" class="headerlink" title="5. 参考博文"></a>5. 参考博文</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Andya/p/7426436.html">参考博文-1</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1833688">参考博文-2</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+    
+     	<div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+     	</div>
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>CrazyPixel
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" title="【后端面经-数据库】MySQL事务隔离级别.md">http://example.com/2023/06/30/【后端面经-数据库】MySQL事务隔离级别/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F/" rel="tag"># 后端面经</a>
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+              <a href="/tags/DBMS/" rel="tag"># DBMS</a>
+              <a href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag"># 事务</a>
+              <a href="/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" rel="tag"># 隔离级别</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/" rel="prev" title="剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）">
+      <i class="fa fa-chevron-left"></i> 剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" rel="next" title="【后端面经-数据库】MySQL的存储引擎.md">
+      【后端面经-数据库】MySQL的存储引擎.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">MySQL事务隔离级别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">0. 事务的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%89%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">1. 三类问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">1.3.</span> <span class="nav-text">2. 事务隔离级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">3. 操作指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">4. 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%8F%82%E8%80%83%E5%8D%9A%E6%96%87"><span class="nav-number">1.6.</span> <span class="nav-text">5. 参考博文</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CrazyPixel"
+      src="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+  <p class="site-author-name" itemprop="name">CrazyPixel</p>
+  <div class="site-description" itemprop="description">博（jing）客（shen）展（jia）区（yuan）</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cyl173" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cyl173" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.cnblogs.com/CrazyPixel" title="博客园 → https:&#x2F;&#x2F;www.cnblogs.com&#x2F;CrazyPixel" rel="noopener" target="_blank"><i class="fa fa-fw fa-gratipay"></i>博客园</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_44201830?spm=1010.2135.3001.5421" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_44201830?spm&#x3D;1010.2135.3001.5421" rel="noopener" target="_blank"><i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrazyPixel</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">41k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">38 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v6.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

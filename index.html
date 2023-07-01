@@ -184,7 +184,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%B8%BB%E9%94%AE-%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%BA%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
@@ -198,7 +198,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/" class="post-title-link" itemprop="url">【后端面经-数据库】MySQL的存储引擎.md</a>
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%B8%BB%E9%94%AE-%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">【后端面经-数据库】MySQL主键-唯一索引-联合索引的区别.md</a>
         </h1>
 
         <div class="post-meta">
@@ -207,10 +207,727 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-06-30 22:35:46 / 修改时间：22:53:32" itemprop="dateCreated datePublished" datetime="2023-06-30T22:35:46+08:00">2023-06-30</time>
+              <time title="创建时间：2023-06-30 22:42:15" itemprop="dateCreated datePublished" datetime="2023-06-30T22:42:15+08:00">2023-06-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:28:40" itemprop="dateModified" datetime="2023-07-01T19:28:40+08:00">2023-07-01</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>691</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MySQL主键、唯一索引、联合索引的区别和作用"><a href="#MySQL主键、唯一索引、联合索引的区别和作用" class="headerlink" title="MySQL主键、唯一索引、联合索引的区别和作用"></a>MySQL主键、唯一索引、联合索引的区别和作用</h1><p><a href="MySQL%E4%B8%BB%E9%94%AE%E3%80%81%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95%E3%80%81%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E4%BD%9C%E7%94%A8">TOC</a></p>
+<h1 id="0-简介"><a href="#0-简介" class="headerlink" title="0. 简介"></a>0. 简介</h1><p>索引是一类特殊的<code>文件</code>，用来存储检索信息，使数据库查找更加快速。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%B8%BB%E9%94%AE-%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91AQS%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+      <meta itemprop="name" content="CrazyPixel">
+      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyPixelCode's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91AQS%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">【后端面经-Java】AQS详解.md</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-30 22:38:24" itemprop="dateCreated datePublished" datetime="2023-06-30T22:38:24+08:00">2023-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:28:45" itemprop="dateModified" datetime="2023-07-01T19:28:45+08:00">2023-07-01</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="【后端面经-Java】AQS详解"><a href="#【后端面经-Java】AQS详解" class="headerlink" title="【后端面经-Java】AQS详解"></a>【后端面经-Java】AQS详解</h1><h2 id="1-AQS是什么？"><a href="#1-AQS是什么？" class="headerlink" title="1. AQS是什么？"></a>1. AQS是什么？</h2><p>AQS定义了一套多线程访问共享资源的同步器框架，许多同步类实现都依赖于它，如常用的ReentrantLock。<br>简单来说，<strong>AQS定义了一套框架，来实现同步类</strong>。</p>
+<h2 id="2-AQS核心思想"><a href="#2-AQS核心思想" class="headerlink" title="2. AQS核心思想"></a>2. AQS核心思想</h2><h3 id="2-1-基本框架"><a href="#2-1-基本框架" class="headerlink" title="2.1 基本框架"></a>2.1 基本框架</h3><p>AQS的核心思想是对于共享资源，维护一个双端队列来管理线程，队列中的线程依次获取资源，获取不到的线程进入队列等待，直到资源释放，队列中的线程依次获取资源。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91AQS%E8%AF%A6%E8%A7%A3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91HashMap%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+      <meta itemprop="name" content="CrazyPixel">
+      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyPixelCode's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91HashMap%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">【后端面经-Java】HashMap详解.md</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-30 22:38:15" itemprop="dateCreated datePublished" datetime="2023-06-30T22:38:15+08:00">2023-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:28:49" itemprop="dateModified" datetime="2023-07-01T19:28:49+08:00">2023-07-01</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="【后端面经-Java】HashMap详解"><a href="#【后端面经-Java】HashMap详解" class="headerlink" title="【后端面经-Java】HashMap详解"></a>【后端面经-Java】HashMap详解</h1><h2 id="1-HashMap的家族定位"><a href="#1-HashMap的家族定位" class="headerlink" title="1. HashMap的家族定位"></a>1. HashMap的家族定位</h2><p>接口<code>java.util.Map</code>有四个常用的实现类，如图是它们之间的类继承关系。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91HashMap%E8%AF%A6%E8%A7%A3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+      <meta itemprop="name" content="CrazyPixel">
+      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyPixelCode's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">【后端面经-Java】Java创建线程的方法详解.md</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-30 22:38:01" itemprop="dateCreated datePublished" datetime="2023-06-30T22:38:01+08:00">2023-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:28:52" itemprop="dateModified" datetime="2023-07-01T19:28:52+08:00">2023-07-01</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="【后端面经-Java】Java创建线程的方法简介"><a href="#【后端面经-Java】Java创建线程的方法简介" class="headerlink" title="【后端面经-Java】Java创建线程的方法简介"></a>【后端面经-Java】Java创建线程的方法简介</h1><h2 id="1-线程的基本概念"><a href="#1-线程的基本概念" class="headerlink" title="1. 线程的基本概念"></a>1. 线程的基本概念</h2><h3 id="1-1-线程"><a href="#1-1-线程" class="headerlink" title="1.1 线程"></a>1.1 线程</h3><p>学过操作系统的同学应该不陌生，线程是计算机中的最小调度单元，一个进程可以有多个线程，执行并发操作，提高任务的运行效率</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E4%BA%86%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+      <meta itemprop="name" content="CrazyPixel">
+      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyPixelCode's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E4%BA%86%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" class="post-title-link" itemprop="url">【后端面经-Java】Java线程池满了的处理策略.md</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-30 22:37:44" itemprop="dateCreated datePublished" datetime="2023-06-30T22:37:44+08:00">2023-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:28:56" itemprop="dateModified" datetime="2023-07-01T19:28:56+08:00">2023-07-01</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>@<a href="%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-java%E3%80%91java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5">TOC</a></p>
+<h2 id="1-线程池介绍"><a href="#1-线程池介绍" class="headerlink" title="1. 线程池介绍"></a>1. 线程池介绍</h2><h3 id="1-1-基本作用"><a href="#1-1-基本作用" class="headerlink" title="1.1 基本作用"></a>1.1 基本作用</h3><p>对多个线程使用的资源进行集中管理。</p>
+<ul>
+<li>降低资源消耗：<ul>
+<li>复用线程，降低线程创建和销毁造成的消耗；</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BB%A1%E4%BA%86%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Synchronize%E5%92%8CReentrantlock%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+      <meta itemprop="name" content="CrazyPixel">
+      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyPixelCode's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Synchronize%E5%92%8CReentrantlock%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">【后端面经-Java】Synchronize和Reentrantlock的区别.md</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-30 22:37:00" itemprop="dateCreated datePublished" datetime="2023-06-30T22:37:00+08:00">2023-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:28:59" itemprop="dateModified" datetime="2023-07-01T19:28:59+08:00">2023-07-01</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="【后端面经-Java】Synchronize和ReentrantLock区别"><a href="#【后端面经-Java】Synchronize和ReentrantLock区别" class="headerlink" title="【后端面经-Java】Synchronize和ReentrantLock区别"></a>【后端面经-Java】Synchronize和ReentrantLock区别</h1><h2 id="1-概念介绍"><a href="#1-概念介绍" class="headerlink" title="1. 概念介绍"></a>1. 概念介绍</h2><h3 id="1-1-线程安全锁"><a href="#1-1-线程安全锁" class="headerlink" title="1.1 线程安全锁"></a>1.1 线程安全锁</h3><p>Synchronize（同步锁）和ReentrantLock（可重入锁）都是Java中的常用锁，都是用来保证线程安全的。<br>两者都是同步锁，且都是阻塞同步。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91Synchronize%E5%92%8CReentrantlock%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E5%8A%A0%E9%94%81%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+      <meta itemprop="name" content="CrazyPixel">
+      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyPixelCode's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E5%8A%A0%E9%94%81%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">【后端面经-Java】公平锁和加锁流程.md</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-30 22:36:29" itemprop="dateCreated datePublished" datetime="2023-06-30T22:36:29+08:00">2023-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:29:02" itemprop="dateModified" datetime="2023-07-01T19:29:02+08:00">2023-07-01</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="【后端面经-Java】公平锁和加锁流程"><a href="#【后端面经-Java】公平锁和加锁流程" class="headerlink" title="【后端面经-Java】公平锁和加锁流程"></a>【后端面经-Java】公平锁和加锁流程</h1><h2 id="1-公平锁和非公平锁"><a href="#1-公平锁和非公平锁" class="headerlink" title="1. 公平锁和非公平锁"></a>1. 公平锁和非公平锁</h2><h3 id="1-1-基本概念"><a href="#1-1-基本概念" class="headerlink" title="1.1 基本概念"></a>1.1 基本概念</h3><ul>
+<li>公平锁：线程按照到来的先后顺序，排队等待使用资源。</li>
+<li>非公平锁：线程不一定按照先后顺序使用资源，而是可能出现“插队”的情况。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Java%E3%80%91%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E5%8A%A0%E9%94%81%E6%B5%81%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Spring%E3%80%91Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+      <meta itemprop="name" content="CrazyPixel">
+      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyPixelCode's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Spring%E3%80%91Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-title-link" itemprop="url">【后端面经-Spring】Spring中bean的生命周期.md</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-30 22:36:10" itemprop="dateCreated datePublished" datetime="2023-06-30T22:36:10+08:00">2023-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:29:05" itemprop="dateModified" datetime="2023-07-01T19:29:05+08:00">2023-07-01</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>701</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="【后端面经-Spring】Spring-中-bean-的生命周期"><a href="#【后端面经-Spring】Spring-中-bean-的生命周期" class="headerlink" title="【后端面经-Spring】Spring 中 bean 的生命周期"></a>【后端面经-Spring】Spring 中 bean 的生命周期</h1><h2 id="1-bean简介"><a href="#1-bean简介" class="headerlink" title="1.bean简介"></a>1.bean简介</h2><ul>
+<li>bean是一个对象，是由Spring中的IoC创建、实例化的对象。</li>
+<li>一般的java对象，使用的时候创建，不需要就释放内存进行销毁，而bean的生命周期更加复杂</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-Spring%E3%80%91Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
+      <meta itemprop="name" content="CrazyPixel">
+      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyPixelCode's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-title-link" itemprop="url">【后端面经-数据库】MySQL的存储引擎.md</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-30 22:35:46" itemprop="dateCreated datePublished" datetime="2023-06-30T22:35:46+08:00">2023-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 19:27:33" itemprop="dateModified" datetime="2023-07-01T19:27:33+08:00">2023-07-01</time>
+              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -243,7 +960,7 @@
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-md-1/#more" rel="contents">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -268,7 +985,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
@@ -282,88 +999,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/" class="post-title-link" itemprop="url">剑指 Offer 33. 二叉搜索树的后序遍历序列（java解题）</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-04-22 22:40:00 / 修改时间：22:40:39" itemprop="dateCreated datePublished" datetime="2023-04-22T22:40:00+08:00">2023-04-22</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Leetcode《图解数据结构》剑指 Offer 33. 二叉搜索树的后序遍历序列（java 解题）的解题思路和 java 代码，并附上 java 中常用数据结构的功能函数。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/22/%E5%89%91%E6%8C%87-Offer-33-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%EF%BC%88java%E8%A7%A3%E9%A2%98%EF%BC%89/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/14/%E3%80%90%E8%AF%A6%E8%A7%A3%E3%80%91Matlab%E5%AF%BC%E5%85%A5%E5%A4%9A%E4%B8%AA-mat%E6%96%87%E4%BB%B6%E5%B9%B6%E7%94%BB%E5%9B%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
-      <meta itemprop="name" content="CrazyPixel">
-      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CrazyPixelCode's Space">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/14/%E3%80%90%E8%AF%A6%E8%A7%A3%E3%80%91Matlab%E5%AF%BC%E5%85%A5%E5%A4%9A%E4%B8%AA-mat%E6%96%87%E4%BB%B6%E5%B9%B6%E7%94%BB%E5%9B%BE/" class="post-title-link" itemprop="url">【详解】Matlab导入多个.mat文件并画图</a>
+            <a href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" class="post-title-link" itemprop="url">【后端面经-数据库】MySQL事务隔离级别.md</a>
         </h1>
 
         <div class="post-meta">
@@ -373,14 +1009,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-04-14 15:03:03" itemprop="dateCreated datePublished" datetime="2023-04-14T15:03:03+08:00">2023-04-14</time>
+              <time title="创建时间：2023-06-30 22:35:36" itemprop="dateCreated datePublished" datetime="2023-06-30T22:35:36+08:00">2023-06-30</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-06-21 18:18:12" itemprop="dateModified" datetime="2023-06-21T18:18:12+08:00">2023-06-21</time>
+                <time title="修改时间：2023-07-01 19:29:11" itemprop="dateModified" datetime="2023-07-01T19:29:11+08:00">2023-07-01</time>
               </span>
 
           <br>
@@ -389,14 +1025,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.3k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -408,103 +1044,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <meta name="referrer" content="no-referrer"/>
-
-<h1 id="0-实验背景"><a href="#0-实验背景" class="headerlink" title="0. 实验背景"></a>0. 实验背景</h1><p>需要导入多个.mat 文件，将多组数据画在一个图中，并设置图例、坐标轴、散点图、折线图、子图等。</p>
-<ul>
-<li>由于存在重复操作，主要使用脚本文件编写代码。</li>
-<li>figure 窗口操作比较简单，脚本文件不好写的部分可用 figure 窗口操作进行辅助。</li>
-</ul>
+          <h1 id="MySQL事务隔离级别"><a href="#MySQL事务隔离级别" class="headerlink" title="MySQL事务隔离级别"></a>MySQL事务隔离级别</h1><h2 id="0-事务的概念"><a href="#0-事务的概念" class="headerlink" title="0. 事务的概念"></a>0. 事务的概念</h2><p>事务指的是一连串的集中操作指令，一个事务的执行必须执行完所有的动作才能算作执行结束。事务具有四个特点，简记作<code>ACID</code>：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/04/14/%E3%80%90%E8%AF%A6%E8%A7%A3%E3%80%91Matlab%E5%AF%BC%E5%85%A5%E5%A4%9A%E4%B8%AA-mat%E6%96%87%E4%BB%B6%E5%B9%B6%E7%94%BB%E5%9B%BE/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/14/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://raw.githubusercontent.com/cyl173/Imagebed/master/logo.jpg">
-      <meta itemprop="name" content="CrazyPixel">
-      <meta itemprop="description" content="博（jing）客（shen）展（jia）区（yuan）">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CrazyPixelCode's Space">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/14/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87/" class="post-title-link" itemprop="url">重装系统前的准备</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-04-14 01:07:34" itemprop="dateCreated datePublished" datetime="2023-04-14T01:07:34+08:00">2023-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-22 22:36:45" itemprop="dateModified" datetime="2023-04-22T22:36:45+08:00">2023-04-22</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>经历了人生中第一次（被迫）重装系统，有些数据的恢复花了好久才探索出来，想总结一下这几天的痛苦经历，重装系统或者购入新机的朋友可以看看。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/14/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87/#more" rel="contents">
+              <a class="btn" href="/2023/06/30/%E3%80%90%E5%90%8E%E7%AB%AF%E9%9D%A2%E7%BB%8F-%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -528,6 +1071,9 @@
   </div>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -594,14 +1140,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -647,13 +1193,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">13k</span>
+    <span title="站点总字数">41k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">11 分钟</span>
+    <span title="站点阅读时长">38 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v6.3.0
   </div>
